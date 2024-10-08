@@ -1,0 +1,42 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+     for(char c : s.toCharArray()){
+         if(c=='(' || c=='{' || c=='['){
+             stack.push(c);
+             
+         }else{
+             
+             if(stack.isEmpty()){
+                 return false;
+             }
+             
+             
+             char opening = stack.pop();
+             if(c != returnPair(opening)){
+                 return false;
+             }
+         }
+     }
+      return stack.isEmpty();
+    }  
+    
+    public char returnPair(char s){
+      switch (s){
+        case '(':
+            return ')';
+           
+        case '{':
+            return '}';
+            
+        case '[':
+            return ']';
+               
+        default:
+            return '0';
+      } 
+    }
+    
+}        
+    
