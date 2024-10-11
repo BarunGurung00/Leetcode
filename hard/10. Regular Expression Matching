@@ -1,0 +1,27 @@
+class Solution {
+     // Recursive Approach
+    public boolean isMatch(String s, String p) {
+        return isMatch(s, p, 0, 0);
+    }
+
+    private boolean isMatch(String input, String pattern, int textIndex, int patternIndex) {
+        // This is our base case, it is called when we have exhausted the pattern
+        if (patternIndex == pattern.length()) {
+            return textIndex == input.length();
+        }
+
+        // Check if the current characters match or if the pattern char is '.', which also results in a match.
+        boolean firstMatch = (textIndex < input.length()
+                && (pattern.charAt(patternIndex) == input.charAt(textIndex)
+                || pattern.charAt(patternIndex) == '.'));
+
+        // Handle case with '*'
+        if (patternIndex + 1 < pattern.length() && pattern.charAt(patternIndex + 1) == '*') {
+            // Proceed two characters ahead in the pattern, or check next character in the text if it matches the current pattern char
+            return (isMatch(input, pattern, textIndex, patternIndex + 2) ||
+                    (firstMatch && isMatch(input, pattern, textIndex + 1, patternIndex)));
+        } else {
+            return firstMatch && isMatch(input, pattern, textIndex + 1, patternIndex + 1);
+        }
+    }
+}
