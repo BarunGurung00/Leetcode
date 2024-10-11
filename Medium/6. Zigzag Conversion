@@ -1,0 +1,41 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows == 1){
+            return s;
+        }
+        
+        String[] ans = new String[numRows];
+        for (int i = 0; i < numRows; i++) {
+            ans[i] = "";  // Initialize each row as an empty string
+        }
+        
+        
+        int current = 0;//pointer
+        boolean movingDown = true;//knowing the direction
+        for(int i=0; i<s.length(); i++){ 
+            char c = s.charAt(i);
+            ans[current] += c;
+            
+            if(current == 0){
+                movingDown = true;
+            }else if(current == numRows -1){
+                movingDown = false;
+            }
+            
+            if(movingDown){
+                current ++;
+            }else {
+                current --;
+            }
+        }
+        
+       
+        // Combine all rows to get the final result
+        String result = "";
+        for (String str : ans) {
+            result += str;
+        }
+        
+        return result;
+    }
+}
